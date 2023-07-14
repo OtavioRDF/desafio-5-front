@@ -1,13 +1,15 @@
-import styled  from "styled-components";
 import Inputs from "../components/input";
 import Table from "../components/table";
 import Button from "../components/button";
 import { useState } from "react";
 import axios from "axios";
 
+import {StyledNoContent} from "../styles/styledNoContent";
+import {InputsDiv} from "../styles/inputsDiv";
+import {StyledSection} from "../styles/styledSection";
 
 export default function Home(){
-  const [data, setData] = useState([]);
+  const [data, setData] = useState();
   const baseURL = "http://localhost:8080/api/v1/transferencias";
   
   const [formValues, setFormValues] = useState({
@@ -52,7 +54,8 @@ export default function Home(){
               <Inputs 
                 type="date" 
                 placeholder="14/02/2019" 
-                name="dataInicio" label="Data de início" 
+                name="dataInicio" 
+                label="Data de início" 
                 onChange={handleChange}
                 value={formValues.dataInicio} 
               />
@@ -83,24 +86,11 @@ export default function Home(){
           </InputsDiv>
           <Button text="Pesquisar"/>
         </form>
-        <Table data={data}/>
+        {data 
+          ? <Table data={data}/> 
+          : <StyledNoContent>Não há dados para serem exibidos</StyledNoContent>
+        }
       </StyledSection>
     </main>
   )
 }
-
-const InputsDiv = styled.div`
-  width: 620px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-`;
-
-const StyledSection = styled.section`
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-
-  align-items: center;
-  justify-content: space-evenly;
-`;

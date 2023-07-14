@@ -1,4 +1,4 @@
-import { styled } from "styled-components";
+import { StyledButton } from "../styles/styledButton";
 
 export default function Button({text}){
   return(
@@ -8,10 +8,3 @@ export default function Button({text}){
   )
 }
 
-const StyledButton = styled.button`
-  border: 2px solid #888;
-  border-radius: 5px;
-  background-color: #d4d4d4;
-  padding: 15px;
-  font-weight: 600;
-`;

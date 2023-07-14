@@ -1,4 +1,7 @@
 import { styled } from "styled-components";
+import { StyledTd } from "../styles/styledTd";
+import { StyledTh } from "../styles/styledTh";
+import { StyledTable } from "../styles/styledTable";
 
 export default function Table({data}){
   return(
@@ -29,22 +32,3 @@ export default function Table({data}){
     </StyledTable>
   );
 }
-
-const StyledTable = styled.table`
-  width: 900px;
-  border-collapse: collapse;
-  font-size: 16px;
-`;
-
-const StyledTh = styled.th`
-  font-weight: 600;
-  background-color: #d4d4d4;
-  padding: 20px;
-  border-bottom: solid 2px #8f8f8f;
-`;
-
-const StyledTd = styled.td`
-  text-align: center;
-  padding: 15px;
-  border: 1px solid #8f8f8f;
-`;
