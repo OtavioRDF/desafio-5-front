@@ -1,10 +1,10 @@
 import { styled } from "styled-components"
 
-export default function Input({type, placeholder, name, label}){
+export default function Input({type, placeholder, name, label, required, onChange}){
   return(
     <>
       <Label htmlFor={name}>{label}
-        <Inputs type={type} placeholder={placeholder} name={name}/>
+        <Inputs type={type} placeholder={placeholder} name={name} required={required} onChange={onChange}/>
       </Label>
     </>
   )
