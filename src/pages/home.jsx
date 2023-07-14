@@ -3,8 +3,13 @@ import Inputs from "../components/input";
 import Table from "../components/table";
 import Button from "../components/button";
 import { useState } from "react";
+import axios from "axios";
+
 
 export default function Home(){
+  const [data, setData] = useState([]);
+  const baseURL = "http://localhost:8080/api/v1/transferencias";
+  
   const [formValues, setFormValues] = useState({
     idConta: "",
     dataInicio: "",
@@ -15,37 +20,30 @@ export default function Home(){
   function handleChange(e){
     const {name, value} = e.target;
     setFormValues({...formValues, [name]: value});
+    console.log(formValues)
   }
 
-  function handleFormSubmit(e, formValues){
-    e.preventDefault()
-  }
-  const obj= [
-    {
-      data: "20/04/2000",
-      valentia: "500.00",
-      tipo: "depósito",
-      nomeOperador: "Fulano"
-    },
-    {
-      data: "21/04/2000",
-      valentia: "900.00",
-      tipo: "depósito",
-      nomeOperador: "Fulano"
-    },
-    {
-      data: "22/04/2000",
-      valentia: "700.00",
-      tipo: "depósito",
-      nomeOperador: "Dulano"
-    },
-    {
-      data: "23/04/2000",
-      valentia: "600.00",
-      tipo: "depósito",
-      nomeOperador: "Sicrano"
+  async function handleFormSubmit(e){
+    e.preventDefault();
+    let url = `${baseURL}/${formValues.idConta}`;
+    
+    if (formValues.nomeOperadorTransacionado) 
+      url += `?nomeOperadorTransacao=${formValues.nomeOperadorTransacionado}`
+
+    if (formValues.dataInicio && formValues.dataFinal) {
+      const paramSeparator = formValues.nomeOperadorTransacionado ? "&" : "?";
+      url += `${paramSeparator}dataInicio=${formValues.dataInicio}&dataFinal=${formValues.dataFinal}`
     }
-  ]
+   
+    try{
+      console.log(url);
+      const response = await axios.get(url)
+      setData(response.data);
+      console.log(response.data);
+    } catch (err){
+      console.log(err);
+    }
+  }
   return(
     <main>
       <StyledSection>
@@ -83,9 +81,9 @@ export default function Home(){
                 value={formValues.idConta} 
               />
           </InputsDiv>
-          <Button text="Buscar"/>
+          <Button text="Pesquisar"/>
         </form>
-        <Table data={obj}/>
+        <Table data={data}/>
       </StyledSection>
     </main>
   )

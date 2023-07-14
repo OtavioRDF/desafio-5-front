@@ -12,18 +12,20 @@ export default function Table({data}){
           </tr>
         </thead>
 
-      <tbody>
-            {data.map((item, index) => (
-              <tr key={index}>
-                  <StyledTd>{item.data}</StyledTd>
-                  <StyledTd>R${item.valentia}</StyledTd>
-                  <StyledTd>{item.tipo}</StyledTd>
-                  <StyledTd>{item.nomeOperador}</StyledTd>  
-              </tr>
+        <tbody>
+              {data.map((item, index) => (
+                <tr key={index}>
+                    <StyledTd>{item.dataTransferencia}</StyledTd>
+                    <StyledTd>R${item.valor}</StyledTd>
+                    <StyledTd>{item.tipo}</StyledTd>
+                    <StyledTd>{item.nomeOperadorTransacao}</StyledTd>  
+                </tr>
+              )
             )
-          )
-          }
-      </tbody>
+            }
+        </tbody>
+        <tfoot>
+        </tfoot>
     </StyledTable>
   );
 }
