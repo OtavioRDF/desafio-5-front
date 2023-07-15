@@ -8,8 +8,8 @@ export default function Table({data, dataPerPage, totalData, paginate}){
 
   data.forEach(element => {
     saldoPeriodo += element.valor
-    console.log(saldoPeriodo)
   });
+  
   return(
     <StyledTable>
         <thead>

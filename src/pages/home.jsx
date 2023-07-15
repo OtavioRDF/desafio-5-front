@@ -44,8 +44,6 @@ export default function Home(){
     try{
       const response = await axios.get(url)
       setData(response.data);
-      console.log(response.data);
-      console.log(url);
     } catch (err){
       console.log(err);
     }
@@ -55,7 +53,7 @@ export default function Home(){
   const indexOfFirstData = indexOfLastData - dataPerPage;
   const currentData = data.slice(indexOfFirstData, indexOfLastData);
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-  
+
   return(
     <main>
       <StyledSection>
