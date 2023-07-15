@@ -1,11 +1,18 @@
-import { styled } from "styled-components";
 import { StyledTd } from "../styles/styledTd";
 import { StyledTh } from "../styles/styledTh";
 import { StyledTable } from "../styles/styledTable";
+import Pagination from "../components/pagination";
 
-export default function Table({data}){
+export default function Table({data, dataPerPage, totalData, paginate}){
   return(
     <StyledTable>
+        <thead>
+          <tr>
+            <StyledTh colSpan="2">Saldo total:</StyledTh>
+            <StyledTh colSpan="2">Saldo no período: </StyledTh>
+          </tr>
+        </thead>
+
         <thead>
           <tr>
             <StyledTh>Data</StyledTh>
@@ -28,6 +35,9 @@ export default function Table({data}){
             }
         </tbody>
         <tfoot>
+          <tr>
+            <StyledTd colSpan="4"> <Pagination dataPerPage={dataPerPage} totalData={totalData} paginate={paginate}/> </StyledTd>
+          </tr>
         </tfoot>
     </StyledTable>
   );

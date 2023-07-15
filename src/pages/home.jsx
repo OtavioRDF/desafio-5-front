@@ -1,15 +1,19 @@
-import Inputs from "../components/input";
-import Table from "../components/table";
-import Button from "../components/button";
 import { useState } from "react";
 import axios from "axios";
+import Button from "../components/button";
+import Inputs from "../components/input";
+import Table from "../components/table";
 
 import {StyledNoContent} from "../styles/styledNoContent";
 import {InputsDiv} from "../styles/inputsDiv";
 import {StyledSection} from "../styles/styledSection";
 
 export default function Home(){
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [dataPerPage] = useState(5);
+
+
   const baseURL = "http://localhost:8080/api/v1/transferencias";
   
   const [formValues, setFormValues] = useState({
@@ -38,7 +42,6 @@ export default function Home(){
     }
    
     try{
-      console.log(url);
       const response = await axios.get(url)
       setData(response.data);
       console.log(response.data);
@@ -46,6 +49,11 @@ export default function Home(){
       console.log(err);
     }
   }
+
+  const indexOfLastData = currentPage * dataPerPage;
+  const indexOfFirstData = indexOfLastData - dataPerPage;
+  const currentData = data.slice(indexOfFirstData, indexOfLastData);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
   return(
     <main>
       <StyledSection>
@@ -86,8 +94,8 @@ export default function Home(){
           </InputsDiv>
           <Button text="Pesquisar"/>
         </form>
-        {data 
-          ? <Table data={data}/> 
+        {data.length > 0 
+          ? <Table data={currentData} dataPerPage={dataPerPage} totalData={data.length} paginate={paginate}/> 
           : <StyledNoContent>Não há dados para serem exibidos</StyledNoContent>
         }
       </StyledSection>
